@@ -96,7 +96,7 @@
       dest: "{{ binaries_folder }}"
       owner: "{{ username }}"
       group: "{{ group_name }}"
-      mode: 'u=rwx,go=rx'
+      mode: 'u=rwx,go=rw'
   when: not activemq_wrapper_exists.stat.exists
   notify: activemq-restart
 
@@ -106,11 +106,12 @@
     dest: /etc/systemd/system/activemq.service
     owner: "{{ username }}"
     group: "{{ group_name }}"
-    mode: 'u=rwx,g=rwx,o=rx'
+    mode: 644
   notify: activemq-restart
 
 - name: Ensure activemq service is started and enabled on boot
   systemd:
     name: activemq.service
     state: started
+    daemon_reload: yes
     enabled: true

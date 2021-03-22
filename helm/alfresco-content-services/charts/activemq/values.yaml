@@ -23,7 +23,7 @@ services:
         stomp: 61613
         amqp: 5672
         openwire: 61616
-    type: ClusterIP
+    type: NodePort
   webConsole:
     ports:
       internal:
